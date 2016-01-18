@@ -5,7 +5,7 @@ class Lingeling < Formula
   url 'http://fmv.jku.at/lingeling/lingeling-bal-2293bef-151109.tar.gz'
   sha1 '7df653fb3eb400c6028b571e6514210e57b53f81'
 
-  # option 'with-variants', 'Install other variants as well'
+  option 'with-variants', 'Install other variants as well'
 
   # depends_on 'lingeling-druplig' if build.with? 'variants'
   # depends_on 'plingeling' if build.with? 'variants'
@@ -13,7 +13,13 @@ class Lingeling < Formula
 
   def install
     system "./configure.sh -O"
-    system "make lingeling"
+    if build.with? "variants"
+      system "make lingeling plingeling treengeling"
+      bin.install "plingeling"
+      bin.install "treengeling"
+    else
+      system "make lingeling"
+    end
     bin.install "lingeling"
     lib.install "liblgl.a"
     (include/'lingeling').install "lgldimacs.h", "lglib.h"
