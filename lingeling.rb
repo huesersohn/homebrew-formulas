@@ -12,13 +12,11 @@ class Lingeling < Formula
   # depends_on 'treengeling' if build.with? 'variants'
 
   def install
-    Dir.chdir 'code' do
-      system "./configure.sh -O"
-      system "make lingeling"
-      bin.install "lingeling"
-      lib.install "liblgl.a"
-      (include/'lingeling').install "lgldimacs.h", "lglib.h"
-    end
+    system "./configure.sh -O"
+    system "make lingeling"
+    bin.install "lingeling"
+    lib.install "liblgl.a"
+    (include/'lingeling').install "lgldimacs.h", "lglib.h"
   end
 
 end
